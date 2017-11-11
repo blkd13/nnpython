@@ -11,6 +11,9 @@ import json
 HOST = 'https://www.boatrace.jp'
 IB_HOST = 'https://ib.mbrace.or.jp'
 
+# 残高＞入金だったら買い付けを行わないフラグ。
+hoshuteki_flg = True
+
 
 def nazo_rand():
     return str(math.floor(rand.random() * (1e12 - 1 + 1)) + 1 + int(time.time() * 1000))
@@ -96,7 +99,64 @@ def zandaka():
     return zandaka
 
 
-def nyukin():
+def nyukin_list():
+    sess = login()
+
+    next_url = '/owpc/VoteConfirm.jsp?param=H0JS00000stContens&kbn=1&voteActionUrl=/owpc/pc/site/index.html'
+
+    # 投票ボタンを押した後に確認画面が出てくる
+    html = sess.get(HOST + next_url)
+    soup = BeautifulSoup(html.text, 'html.parser')
+    time.sleep(1)
+    next_url = next_url.replace('/owpc/VoteConfirm.jsp',
+                                '/owpc/VoteBridgeNew.jsp')
+
+    # 確認ボタンを押して投票ページのトップページを開く
+    html = sess.get(HOST + next_url)
+    soup = BeautifulSoup(html.text, 'html.parser')
+    time.sleep(1)
+
+    # 自動リダイレクト
+    form = soup.find('form', {'name': 'voteform'})
+    dat = form2Dat(form.select('input'))
+    html = sess.post(form['action'], data=dat)
+    soup = BeautifulSoup(html.text, 'html.parser')
+    time.sleep(1)
+
+    token = soup.select('#toplogoForm [name=token]')[0]['value']
+    _csrf = soup.select('#toplogoForm [name=_csrf]')[0]['value']
+    zandaka = int(soup.select('#currentBetLimitAmount')
+                  [0].text.replace(',', ''))
+    center_no = soup.find('meta', {'name': 'centerNo'})['content']
+
+    # 入金額一覧
+    rand = nazo_rand()
+    next_url = 'https://ib.mbrace.or.jp/tohyo-ap-pctohyo-web/service/ref/rcptlist/charge?cid=%s&r=%s' % (
+        center_no, rand)
+    dat = {
+        'refType': 2,
+        'dispPageNo': 1,
+        'screenFrom': 'B610',
+        'token': token,
+        '_csrf': _csrf
+    }
+    html = sess.post(next_url, data=dat)
+    if html.status_code == 200:
+        json_obj = json.loads(html.text)
+        time.sleep(1)
+        sum_amount = 0
+        for rec in json_obj['rcptInfoList']:
+            sum_amount += rec['amount']
+
+    print(zandaka)
+    if zandaka > sum_amount:
+        print(sum_amount)
+        print('end')
+
+    logout(sess)
+
+
+def nyukin(kingaku):
     sess = login()
     conf_obj = json.load(open('./config.json', 'r'))
 
@@ -146,7 +206,7 @@ def nyukin():
     next_url = 'https://ib.mbrace.or.jp/tohyo-ap-pctohyo-web/service/amo/chargecomp?cid=%s&r=%s' % (
         center_no, rand)
     dat = {
-        'chargeInstructAmt': 1,
+        'chargeInstructAmt': int(kingaku / 1000),
         'betPassword': conf_obj['betPassword'],
         'screenFrom': 'B634',
         'token': token,
@@ -200,6 +260,35 @@ def kaitsuke(ymd, jcd, rno, kumiban_list):
     html = sess.post(form['action'], data=dat)
     soup = BeautifulSoup(html.text, 'html.parser')
     time.sleep(1)
+
+    # 入金額＜残高だったら勝っているので買い付けしないでやめる
+    token = soup.select('#toplogoForm [name=token]')[0]['value']
+    _csrf = soup.select('#toplogoForm [name=_csrf]')[0]['value']
+    zandaka = int(soup.select('#currentBetLimitAmount')
+                  [0].text.replace(',', ''))
+    center_no = soup.find('meta', {'name': 'centerNo'})['content']
+
+    rand = nazo_rand()
+    next_url = 'https://ib.mbrace.or.jp/tohyo-ap-pctohyo-web/service/ref/rcptlist/charge?cid=%s&r=%s' % (
+        center_no, rand)
+    dat = {
+        'refType': 2,
+        'dispPageNo': 1,
+        'screenFrom': 'B610',
+        'token': token,
+        '_csrf': _csrf
+    }
+    html = sess.post(next_url, data=dat)
+    time.sleep(1)
+    if html.status_code == 200:
+        json_obj = json.loads(html.text)
+        time.sleep(1)
+        sum_amount = 0
+        for rec in json_obj['rcptInfoList']:
+            sum_amount += rec['amount']
+        if hoshuteki_flg and zandaka > sum_amount:
+            print('won ', sum_amount, zandaka)
+            return
 
     # 投票
     form = soup.find('form', {'id': 'todayForm'})

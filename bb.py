@@ -285,13 +285,13 @@ for [race_id] in cur.fetchall():
     # rune_break(race_id)
     # rune_continue(race_id)
     # rune_old(race_id)
-    # rune_nnn(race_id)
+    rune_nnn(race_id)
     continue
 
 print('0', KAI)
 
-import touhyou
-touhyou.nyukin()
+# import touhyou
+# touhyou.nyukin()
 
 # Query string::::::::
 # cid	ap238

@@ -40,7 +40,7 @@ def pageSum(fd):
                         no += 1
                         # print((fd, kaijou, no, name, h['href']))
                         cur.execute(
-                            "INSERT INTO race_list(kaisaibi,kaijou,no,name,url) VALUES(%s,%s,%s,%s,%s)" ,
+                            "INSERT INTO race_list(kaisaibi,kaijou,no,name,url) VALUES(%s,%s,%s,%s,%s)",
                             (fd, kaijou, no, name,
                              h['href'] if 'href' in h else 'null')
                         )
@@ -330,7 +330,6 @@ def koushiki_asaichi(ymd, hm):
     if cur.fetchone()[0] > 0:
         return
     print('Init', ymd)
-
     html = r.get('https://www.boatrace.jp/owpc/pc/race/index')
     soup = BeautifulSoup(html.text, "html5lib")
     time.sleep(1)
@@ -350,8 +349,11 @@ def koushiki_asaichi(ymd, hm):
             if cur.fetchone() is None:
                 print(race_id, shime)
                 cur.execute(
-                    "INSERT INTO race_list_koushiki(race_id,shime,sumi) VALUES(%s,%s,%s)", (race_id, shime, '0'))
+                    "INSERT INTO race_list_koushiki(race_id,race_ymd,shime,sumi) VALUES(%s,%s,%s,%s)", (race_id, ymd, shime, '0'))
             con.commit()
+    print('Furikae', ymd)
+    if touhyou.zandaka() < 1000:
+        touhyou.nyukin(10000)
 
 
 def fill_result():
@@ -363,7 +365,8 @@ def fill_result():
     race_id_list = [rec for rec in cur]
     for [race_id] in race_id_list:
         [ymd, jcd, rno] = race_id.split('-')
-        html = r.get('https://www.boatrace.jp/owpc/pc/race/raceresult?rno=%d&jcd=%s&hd=%s' % (int(rno), jcd, ymd))
+        html = r.get(
+            'https://www.boatrace.jp/owpc/pc/race/raceresult?rno=%d&jcd=%s&hd=%s' % (int(rno), jcd, ymd))
         soup = BeautifulSoup(html.text, "html5lib")
         time.sleep(1)
         if len(soup.select('.is-w495')) < 3:
@@ -446,7 +449,7 @@ def koushiki_exec():
             "UPDATE race_list_koushiki SET sumi='1' , fill_odds_ts=now() WHERE race_id=%s", [race_id])
         con.commit()
         rune_nnn(race_id)
-        rune3(race_id)
+        # rune3(race_id)
 
 
 r16 = range(1, 7)
@@ -492,7 +495,7 @@ def rune(race_id):
         # for idx1 in range(min(isKau), max(isKau) + 2):
         # isKau.append(max(isKau) + 1)
         for idx1 in isKau:
-            cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s" ,
+            cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s",
                         (race_id, math.pow(1000, (idx1 + 0) / float(rate)), math.pow(1000, (idx1 + 2) / float(rate))))
             odds1Recs = [odds1Rec for odds1Rec in cur]
             # for odds1Rec in odds1Recs:
@@ -554,7 +557,7 @@ def rune_nnn(race_id):
     # [kagen, jougen] = [39.79, 50.10]
     # [kagen, jougen] = [250.99, 315.95]
     [kane, haitou, kauCnt, atariCnt] = [0, 0, 0, 0]
-    cur.execute("SELECT COUNT(*), MAX(atari) FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s" ,
+    cur.execute("SELECT COUNT(*), MAX(atari) FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s",
                 (race_id, kagen, jougen))
     [cnt, atari] = cur.fetchone()
     KAI['all'] += 1
@@ -622,7 +625,7 @@ def rune3(race_id):
         if graphDat[idx1] > threashAry[idx1] and idx1 < sakaime:
             break
         elif graphDat[idx1] > threashAry[idx1] and idx1 >= sakaime:
-            cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s ORDER BY ninki1" ,
+            cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s ORDER BY ninki1",
                         (race_id, math.pow(1000, (idx1 - l_r) / float(rate)), math.pow(1000, (idx1 + h_r) / float(rate))))
             kumibanList = []
             for [kumiban, odds1] in cur:
