@@ -1,0 +1,102 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BeautifulSoup	../aa.py	/^from bs4 import BeautifulSoup$/;"	kind:namespace	line:1
+BeautifulSoup	../bb.py	/^from bs4 import BeautifulSoup$/;"	kind:namespace	line:1
+BeautifulSoup	../cc.py	/^from bs4 import BeautifulSoup$/;"	kind:namespace	line:1
+HOST	../cc.py	/^HOST = 'https:\/\/www.boatrace.jp'$/;"	kind:variable	line:16
+KAI	../aa.py	/^KAI = {'all': 0, 'race': 0, 'atari': 0, 'kau': 0, 'haitou': 0}$/;"	kind:variable	line:510
+KAI	../aa.py	/^KAI = {'d': 0, 'atari': 0}$/;"	kind:variable	line:436
+KAI	../bb.py	/^KAI = {'all': 0, 'race': 0, 'atari': 0, 'kau': 0, 'haitou': 0}$/;"	kind:variable	line:37
+aTag	../cc.py	/^aTag = soup.find('a', {'id': 'mainVoteTag'})$/;"	kind:variable	line:51
+aa.py	../aa.py	1;"	kind:file	line:1
+bb.py	../bb.py	1;"	kind:file	line:1
+cc.py	../cc.py	1;"	kind:file	line:1
+con	../aa.py	/^con = psycopg2.connect($/;"	kind:variable	line:15
+con	../bb.py	/^con = psycopg2.connect($/;"	kind:variable	line:14
+cur	../aa.py	/^cur = con.cursor()$/;"	kind:variable	line:17
+cur	../bb.py	/^cur = con.cursor()$/;"	kind:variable	line:16
+dat	../cc.py	/^dat = {}$/;"	kind:variable	line:40
+datetime	../aa.py	/^import datetime$/;"	kind:namespace	line:5
+datetime	../bb.py	/^import datetime$/;"	kind:namespace	line:5
+datetime	../cc.py	/^import datetime$/;"	kind:namespace	line:5
+fill_result	../aa.py	/^def fill_result():$/;"	kind:function	line:341
+form	../cc.py	/^form = soup.find('form', {'name': 'TENT010_TENTPC010PRForm'})$/;"	kind:variable	line:25
+html	../cc.py	/^html = s.get(HOST + '\/owpc\/logout')$/;"	kind:variable	line:55
+html	../cc.py	/^html = s.get(HOST + '\/owpc\/pc\/login?authAfterUrl=\/')$/;"	kind:variable	line:17
+html	../cc.py	/^html = s.post(HOST + form['action'], data=dat)$/;"	kind:variable	line:45
+inpts	../cc.py	/^inpts = form.select('input')$/;"	kind:variable	line:33
+koushiki	../aa.py	/^def koushiki(tdate):$/;"	kind:function	line:238
+koushiki_asaichi	../aa.py	/^def koushiki_asaichi(ymd):$/;"	kind:function	line:311
+koushiki_exec	../aa.py	/^def koushiki_exec():$/;"	kind:function	line:371
+kumiban_all	../aa.py	/^kumiban_all = ['%d-%d-%d' % (i0, i1, i2) for i0 in r16 for i1 in r16 if i1 !=$/;"	kind:variable	line:433
+kumiban_all	../bb.py	/^kumiban_all = ['%d-%d-%d' % (i0, i1, i2) for i0 in r16 for i1 in r16 if i1 !=$/;"	kind:variable	line:33
+ld	../aa.py	/^    ld = s['map']$/;"	kind:variable	line:428
+ld	../aa.py	/^    ld = s['map']$/;"	kind:variable	line:505
+ld	../bb.py	/^    ld = s['map']$/;"	kind:variable	line:232
+main	../aa.py	/^def main():$/;"	kind:function	line:284
+maruoSeikei	../aa.py	/^def maruoSeikei(text):$/;"	kind:function	line:83
+math	../aa.py	/^import math$/;"	kind:namespace	line:8
+math	../bb.py	/^import math$/;"	kind:namespace	line:8
+math	../cc.py	/^import math$/;"	kind:namespace	line:8
+mura_odd_d	../aa.py	/^def mura_odd_d(rec, odds_param):$/;"	kind:function	line:144
+murao_odds	../aa.py	/^def murao_odds():$/;"	kind:function	line:162
+murao_race	../aa.py	/^def murao_race(tdate):$/;"	kind:function	line:87
+nexturl	../cc.py	/^nexturl = re.sub(r'\\'.*', '', re.sub(r'.*\\'', '', aTag['onclick']))$/;"	kind:variable	line:53
+nikaime	../aa.py	/^def nikaime(tdate):$/;"	kind:function	line:68
+np	../aa.py	/^import numpy as np$/;"	kind:namespace	line:10
+np	../bb.py	/^import numpy as np$/;"	kind:namespace	line:10
+np	../cc.py	/^import numpy as np$/;"	kind:namespace	line:10
+os	../aa.py	/^import os.path$/;"	kind:namespace	line:13
+os	../bb.py	/^import os.path$/;"	kind:namespace	line:12
+os	../cc.py	/^import os.path$/;"	kind:namespace	line:12
+pageDetail	../aa.py	/^def pageDetail(s):$/;"	kind:function	line:57
+pageSum	../aa.py	/^def pageSum(fd):$/;"	kind:function	line:24
+path	../aa.py	/^import os.path$/;"	kind:namespace	line:13
+path	../bb.py	/^import os.path$/;"	kind:namespace	line:12
+path	../cc.py	/^import os.path$/;"	kind:namespace	line:12
+psycopg2	../aa.py	/^import psycopg2$/;"	kind:namespace	line:3
+psycopg2	../bb.py	/^import psycopg2$/;"	kind:namespace	line:3
+psycopg2	../cc.py	/^import psycopg2$/;"	kind:namespace	line:3
+r	../aa.py	/^import requests as r$/;"	kind:namespace	line:7
+r	../bb.py	/^import requests as r$/;"	kind:namespace	line:7
+r	../cc.py	/^import requests as r$/;"	kind:namespace	line:7
+r16	../aa.py	/^r16 = range(1, 7)$/;"	kind:variable	line:432
+r16	../bb.py	/^r16 = range(1, 7)$/;"	kind:variable	line:32
+re	../aa.py	/^import re$/;"	kind:namespace	line:2
+re	../bb.py	/^import re$/;"	kind:namespace	line:2
+re	../cc.py	/^import re$/;"	kind:namespace	line:2
+requests	../cc.py	/^import requests$/;"	kind:namespace	line:13
+rune	../aa.py	/^def rune(race_id):$/;"	kind:function	line:439
+rune_break	../bb.py	/^def rune_break(race_id):$/;"	kind:function	line:101
+rune_continue	../bb.py	/^def rune_continue(race_id):$/;"	kind:function	line:40
+rune_nnn	../aa.py	/^def rune_nnn(race_id):$/;"	kind:function	line:513
+rune_nnn	../bb.py	/^def rune_nnn(race_id):$/;"	kind:function	line:237
+rune_old	../bb.py	/^def rune_old(race_id):$/;"	kind:function	line:175
+s	../aa.py	/^s = shelve.open('model\/20.db')$/;"	kind:variable	line:425
+s	../aa.py	/^s = shelve.open('model\/m1000_1258_119.db')$/;"	kind:variable	line:503
+s	../bb.py	/^s = shelve.open('model\/m1000_1258.db')$/;"	kind:variable	line:26
+s	../bb.py	/^s = shelve.open('model\/m1000_1258_119.db')$/;"	kind:variable	line:230
+s	../cc.py	/^s = r.Session()$/;"	kind:variable	line:15
+shelve	../aa.py	/^import shelve$/;"	kind:namespace	line:9
+shelve	../bb.py	/^import shelve$/;"	kind:namespace	line:9
+shelve	../cc.py	/^import shelve$/;"	kind:namespace	line:9
+sigmoid	../aa.py	/^def sigmoid(x):$/;"	kind:function	line:20
+sigmoid	../bb.py	/^def sigmoid(x):$/;"	kind:function	line:19
+soup	../cc.py	/^soup = BeautifulSoup(html.text, 'html.parser')$/;"	kind:variable	line:19
+soup	../cc.py	/^soup = BeautifulSoup(html.text, 'html.parser')$/;"	kind:variable	line:46
+soup	../cc.py	/^soup = BeautifulSoup(html.text, 'html.parser')$/;"	kind:variable	line:49
+subprocess	../aa.py	/^import subprocess$/;"	kind:namespace	line:11
+subprocess	../cc.py	/^import subprocess$/;"	kind:namespace	line:11
+time	../aa.py	/^import time$/;"	kind:namespace	line:6
+time	../bb.py	/^import time$/;"	kind:namespace	line:6
+time	../cc.py	/^import time$/;"	kind:namespace	line:6
+u	../aa.py	/^import urllib.request as u$/;"	kind:namespace	line:4
+u	../bb.py	/^import urllib.request as u$/;"	kind:namespace	line:4
+u	../cc.py	/^import urllib.request as u$/;"	kind:namespace	line:4
+urllib	../aa.py	/^import urllib.request as u$/;"	kind:namespace	line:4
+urllib	../bb.py	/^import urllib.request as u$/;"	kind:namespace	line:4
+urllib	../cc.py	/^import urllib.request as u$/;"	kind:namespace	line:4

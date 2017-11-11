@@ -1,0 +1,5 @@
+data/*
+log/
+bk/
+config.json
+__pycache__/
