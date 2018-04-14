@@ -17,6 +17,8 @@ con = psycopg2.connect(
     "host=localhost port=5432 dbname=mydb user=t2 password=password")
 cur = con.cursor()
 
+bet_flg = False
+
 
 def sigmoid(x):
     return 1.0 / (1.0 + np.exp(-x))
@@ -352,7 +354,7 @@ def koushiki_asaichi(ymd, hm):
                     "INSERT INTO race_list_koushiki(race_id,race_ymd,shime,sumi) VALUES(%s,%s,%s,%s)", (race_id, ymd, shime, '0'))
             con.commit()
     print('Furikae', ymd)
-    if touhyou.zandaka() < 1000:
+    if bet_flg and touhyou.zandaka() < 1000:
         touhyou.nyukin(10000)
 
 
@@ -448,8 +450,9 @@ def koushiki_exec():
         cur.execute(
             "UPDATE race_list_koushiki SET sumi='1' , fill_odds_ts=now() WHERE race_id=%s", [race_id])
         con.commit()
-        rune_nnn(race_id)
-        # rune3(race_id)
+        if bet_flg:
+            rune_nnn(race_id)
+            # rune3(race_id)
 
 
 r16 = range(1, 7)

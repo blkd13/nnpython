@@ -72,7 +72,7 @@ def rune_continue(race_id):
     if graphDat.tolist().index(max(graphDat)) >= sakaime and len(isKau) > 0:
         # if len(isKau) > 0:
         for idx1 in isKau:
-            cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s" ,
+            cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s",
                         (race_id, math.pow(1000, (idx1 - 0) / float(rate)), math.pow(1000, (idx1 + 1) / float(rate))))
             odds1Recs = [odds1Rec for odds1Rec in cur]
             cur.execute(
@@ -202,7 +202,7 @@ def rune_old(race_id):
         if graphDat[idx1] > threashAry[idx1] and idx1 < sakaime:
             break
         elif graphDat[idx1] > threashAry[idx1] and idx1 >= sakaime:
-            cur.execute("SELECT COUNT(*),MAX(atari) FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s" ,
+            cur.execute("SELECT COUNT(*),MAX(atari) FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s",
                         (race_id, math.pow(999, (idx1 - 0) / float(rate)), math.pow(999, (idx1 + 1) / float(rate))))
             [kau, atari] = cur.fetchone()
             kauGoukei = kauGoukei + kau
@@ -227,14 +227,12 @@ def rune_old(race_id):
                 print(rr[0], rr[1])
 
 
-s = shelve.open('model/m1000_1258_119.db')
-try:
-    ld = s['map']
-finally:
-    s.close()
-
-
 def rune_nnn(race_id):
+    s = shelve.open('model/m1000_1258_119.db')
+    try:
+        ld = s['map']
+    finally:
+        s.close()
     N_ = len(kumiban_all)
     cur.execute(
         "SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s", [race_id])
@@ -279,13 +277,104 @@ def rune_nnn(race_id):
             print('    ', '〇' if atari == 1 else '☓ ', kumiban, ninki1, odds1)
 
 
+def rune_list(race_id):
+    s = shelve.open('model/m1000_1258_119.db')
+    try:
+        ld = s['map']
+    finally:
+        s.close()
+    N_ = len(kumiban_all)
+    cur.execute(
+        "SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s", [race_id])
+    iDat = {kumiban: math.log(float(odds1), 999) if int(
+        odds1) != 0 else 0 for [kumiban, odds1] in cur}
+    odds1Ary = [{'kmbn': kumi, 'odds1': iDat[kumi] if kumi in iDat else 0}
+                for kumi in kumiban_all]
+    inSet = [np.float(rec['odds1']) for rec in sorted(odds1Ary, key=lambda x: x['odds1'])] + [np.float(rec['odds1'])
+                                                                                              for rec in sorted(odds1Ary, key=lambda x: x['kmbn'])]
+    graphDat = sigmoid(
+        np.dot(np.tanh(np.dot(inSet, ld['ww0']) + ld['bb0']), ld['ww1']) + ld['bb1'])
+    [kagen, jougen] = [10.00, 12.58]
+    # [kagen, jougen] = [39.79, 50.10]
+    # [kagen, jougen] = [250.99, 315.95]
+    [kane, haitou, kauCnt, atariCnt] = [0, 0, 0, 0]
+    cur.execute("SELECT COUNT(*), MAX(atari) FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s",
+                (race_id, kagen, jougen))
+    [cnt, atari] = cur.fetchone()
+    cur.execute(
+        "SELECT shime,haitou FROM race_list_koushiki WHERE race_id=%s", [race_id])
+    [shime, haitou] = cur.fetchone()
+    ymd_date = datetime.datetime.strptime(race_id[0:8], '%Y%m%d')
+    kwd = race_id.split('-')
+    print(race_id, kwd[0], kwd[1], kwd[2], ymd_date.weekday(),
+          shime, haitou, atari, cnt, graphDat[0])
+
+
+def rune_seikika(race_id):
+    s = shelve.open('model/m40_b100_s0888.db')
+    try:
+        ld = s['map']
+    finally:
+        s.close()
+    N_ = len(kumiban_all)
+    cur.execute(
+        "SELECT ninki1,min,max,log FROM odds_list_base00 ORDER BY ninki1")
+    logBase00 = [{'min0': float(min0), 'max0': float(max0), 'log': float(log)} for [
+        ninki1, min0, max0, log] in cur]
+    cur.execute(
+        "SELECT race_id,kumiban,ninki1,odds1,atari FROM odds_list_koushiki WHERE race_id=%s ORDER BY race_id,ninki1,kumiban", [race_id])
+    iDat = {kumiban: min(max(math.log(float(odds1), logBase00[ninki1 - 1]['max0']), 0), 1) for [
+        race_id, kumiban, ninki1, odds1, atari] in cur}
+    odds1Ary = [{'kmbn': kumi, 'odds1': iDat[kumi] if kumi in iDat else 0}
+                for kumi in kumiban_all]
+    inSet = [np.float(rec['odds1']) for rec in sorted(odds1Ary, key=lambda x: x['odds1'])] + [np.float(rec['odds1'])
+                                                                                              for rec in sorted(odds1Ary, key=lambda x: x['kmbn'])]
+    graphDat = sigmoid(
+        np.dot(np.tanh(np.dot(inSet, ld['ww0']) + ld['bb0']), ld['ww1']) + ld['bb1'])
+    [kagen, jougen] = [10.00, 12.59]
+    # [kagen, jougen] = [39.79, 50.10]
+    # [kagen, jougen] = [250.99, 315.95]
+    [kane, haitou, kauCnt, atariCnt] = [0, 0, 0, 0]
+    cur.execute("SELECT COUNT(*), MAX(atari) FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN %s AND %s",
+                (race_id, kagen, jougen))
+    [cnt, atari] = cur.fetchone()
+    KAI['all'] += 1
+    if 0.878 > graphDat[0]:
+        print(race_id, graphDat[0])
+        kauCnt += 1
+        kane = kane + cnt
+        KAI['race'] += 1
+        KAI['kau'] += cnt
+        if atari is not None and atari > 0:
+            cur.execute("SELECT atari,kumiban,ninki1,odds1 FROM odds_list_koushiki WHERE race_id=%s AND atari=1 AND odds1 BETWEEN %s AND %s", (
+                race_id, kagen, jougen))
+            [atari, kumiban, ninki1, odds1] = cur.fetchone()
+            haitou = haitou + odds1
+            atariCnt += 1
+            KAI['atari'] += 1
+            KAI['haitou'] += odds1
+        cur.execute(
+            "SELECT kumiban,ninki1,odds1 FROM odds_list_koushiki WHERE race_id=%s AND atari=1 ", [race_id])
+        [kumiban, ninki1, odds1] = cur.fetchone()
+        print(' ', 'HIT ' if atari == 1 else '    ', kumiban, ninki1, odds1, ' ', kane, haitou, (haitou / kane)
+              if kane != 0 else 0, kauCnt, atariCnt)
+        cur.execute("SELECT atari,kumiban,ninki1,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN  %s AND %s ORDER BY ninki1", (
+            race_id, kagen, jougen))
+        for [atari, kumiban, ninki1, odds1] in cur:
+            print('    ', '〇' if atari == 1 else '☓ ', kumiban, ninki1, odds1)
+
+
+# cur.execute(
+#    "SELECT race_id FROM race_list_murao_view a WHERE sumi='2' AND race_id > '20170800' AND haitou>0 AND EXISTS (SELECT * FROM odds_list_3t b WHERE b.race_id=a.race_id AND atari=1) ORDER BY SUBSTR(race_id,1,8),shime")
 cur.execute(
-    "SELECT race_id FROM race_list_koushiki WHERE sumi='2' AND race_id > '20171030' ORDER BY SUBSTR(race_id,1,8),shime")
+    "SELECT race_id FROM race_list_koushiki a WHERE sumi='2' AND race_id > '20171030' AND haitou>0 AND EXISTS (SELECT * FROM odds_list_koushiki b WHERE b.race_id=a.race_id AND atari=1) ORDER BY SUBSTR(race_id,1,8),shime")
 for [race_id] in cur.fetchall():
     # rune_break(race_id)
     # rune_continue(race_id)
     # rune_old(race_id)
     rune_nnn(race_id)
+    # rune_list(race_id)
+    # rune_seikika(race_id)
     continue
 
 print('0', KAI)

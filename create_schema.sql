@@ -97,7 +97,7 @@ CREATE TABLE race_result_koushiki(
     UNIQUE(race_id,tei)
 )
 ;
--- DROP TABLE race_list_koushiki;
+-- DROP TABLE race_list_koushiki CASCADE;
 CREATE TABLE race_list_koushiki(
     serial_no SERIAL PRIMARY KEY,
     race_id TEXT,
@@ -129,6 +129,13 @@ CREATE TABLE odds_list_koushiki(
     UNIQUE(race_id,kumiban)
 )
 ;
+
+CREATE TABLE holiday(
+    serial_no serial primary key,
+    ymd date,
+    kyujitsu_flg integer,
+    UNIQUE(ymd)
+)
 
 -- DROP VIEW race_list_atari_kumiban ;
 CREATE OR REPLACE VIEW race_list_atari_kumiban_view AS 
@@ -188,13 +195,11 @@ race_list_atari_kumiban
 
 
 
+CREATE OR REPLACE VIEW odds_list_target AS SELECT * FROM odds_list_koushiki WHERE SUBSTR(race_id,1,6) BETWEEN '201712' AND '201712';
+CREATE OR REPLACE VIEW odds_list_test   AS SELECT * FROM odds_list_koushiki WHERE SUBSTR(race_id,1,6) ='201801';
 CREATE TABLE odds_list_base00 AS 
     SELECT ninki1,MIN(odds1),MAX(odds1),LOG(MIN(odds1),MAX(odds1)) 
-    FROM (
-        SELECT ninki1,odds1 FROM odds_list_3t 
-        UNION 
-        SELECT ninki1,odds1 FROM odds_list_koushiki
-    ) b GROUP BY ninki1 ORDER BY ninki1
+    FROM (SELECT ninki1,odds1 FROM odds_list_target) b GROUP BY ninki1 ORDER BY ninki1
 ;
 DROP TABLE race_dot;
 CREATE TABLE race_dot (
@@ -215,3 +220,12 @@ CREATE TABLE race_dot (
 )
 norm_dot
 CREATE INDEX race_dot_norm_dot ON race_dot (norm_dot)
+
+CREATE VIEW race_list_murao_view AS 
+  SELECT 
+    kaisaibi||'-'||kaijou||'-'||TRIM(TO_CHAR(race_no,'00')) AS race_id,
+    haitou3t AS haitou,
+    2 AS sumi,
+    '00:00'::TEXT AS shime 
+  FROM race_list_murao;
+
