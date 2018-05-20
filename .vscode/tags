@@ -9,12 +9,13 @@ BeautifulSoup	../bb.py	/^from bs4 import BeautifulSoup$/;"	kind:namespace	line:1
 BeautifulSoup	../touhyou.py	/^from bs4 import BeautifulSoup$/;"	kind:namespace	line:1
 HOST	../touhyou.py	/^HOST = 'https:\/\/www.boatrace.jp'$/;"	kind:variable	line:11
 IB_HOST	../touhyou.py	/^IB_HOST = 'https:\/\/ib.mbrace.or.jp'$/;"	kind:variable	line:12
-KAI	../aa.py	/^KAI = {'all': 0, 'race': 0, 'atari': 0, 'kau': 0, 'haitou': 0}$/;"	kind:variable	line:535
-KAI	../aa.py	/^KAI = {'d': 0, 'atari': 0}$/;"	kind:variable	line:459
+KAI	../aa.py	/^KAI = {'all': 0, 'race': 0, 'atari': 0, 'kau': 0, 'haitou': 0}$/;"	kind:variable	line:538
+KAI	../aa.py	/^KAI = {'d': 0, 'atari': 0}$/;"	kind:variable	line:462
 KAI	../bb.py	/^KAI = {'all': 0, 'race': 0, 'atari': 0, 'kau': 0, 'haitou': 0}$/;"	kind:variable	line:37
 aa.py	../aa.py	1;"	kind:file	line:1
 bb.py	../bb.py	1;"	kind:file	line:1
 bet	../touhyou.py	/^    def bet(idx, jcd, rno, kumiban, kakeme):$/;"	kind:function	line:312
+bet_flg	../aa.py	/^bet_flg = False$/;"	kind:variable	line:20
 con	../aa.py	/^con = psycopg2.connect($/;"	kind:variable	line:16
 con	../bb.py	/^con = psycopg2.connect($/;"	kind:variable	line:14
 cur	../aa.py	/^cur = con.cursor()$/;"	kind:variable	line:18
@@ -22,31 +23,30 @@ cur	../bb.py	/^cur = con.cursor()$/;"	kind:variable	line:16
 datetime	../aa.py	/^import datetime$/;"	kind:namespace	line:5
 datetime	../bb.py	/^import datetime$/;"	kind:namespace	line:5
 datetime	../touhyou.py	/^import datetime$/;"	kind:namespace	line:3
-fill_result	../aa.py	/^def fill_result():$/;"	kind:function	line:359
+fill_result	../aa.py	/^def fill_result():$/;"	kind:function	line:361
 form2Dat	../touhyou.py	/^def form2Dat(inpts):$/;"	kind:function	line:22
 hoshuteki_flg	../touhyou.py	/^hoshuteki_flg = True$/;"	kind:variable	line:15
 json	../touhyou.py	/^import json$/;"	kind:namespace	line:9
 kaitsuke	../touhyou.py	/^def kaitsuke(ymd, jcd, rno, kumiban_list):$/;"	kind:function	line:223
-koushiki	../aa.py	/^def koushiki(tdate):$/;"	kind:function	line:239
-koushiki_asaichi	../aa.py	/^def koushiki_asaichi(ymd, hm):$/;"	kind:function	line:324
-koushiki_exec	../aa.py	/^def koushiki_exec():$/;"	kind:function	line:389
-kumiban_all	../aa.py	/^kumiban_all = ['%d-%d-%d' % (i0, i1, i2) for i0 in r16 for i1 in r16 if i1 !=$/;"	kind:variable	line:456
+koushiki	../aa.py	/^def koushiki(tdate):$/;"	kind:function	line:241
+koushiki_asaichi	../aa.py	/^def koushiki_asaichi(ymd, hm):$/;"	kind:function	line:326
+koushiki_exec	../aa.py	/^def koushiki_exec():$/;"	kind:function	line:391
+kumiban_all	../aa.py	/^kumiban_all = ['%d-%d-%d' % (i0, i1, i2) for i0 in r16 for i1 in r16 if i1 !=$/;"	kind:variable	line:459
 kumiban_all	../bb.py	/^kumiban_all = ['%d-%d-%d' % (i0, i1, i2) for i0 in r16 for i1 in r16 if i1 !=$/;"	kind:variable	line:33
-ld	../aa.py	/^    ld = s['map']$/;"	kind:variable	line:530
-ld	../bb.py	/^    ld = s['map']$/;"	kind:variable	line:232
+ld	../aa.py	/^    ld = s['map']$/;"	kind:variable	line:533
 login	../touhyou.py	/^def login():$/;"	kind:function	line:29
 logout	../touhyou.py	/^def logout(sess):$/;"	kind:function	line:63
-main	../aa.py	/^def main():$/;"	kind:function	line:310
-main_old	../aa.py	/^def main_old():$/;"	kind:function	line:283
-maruoSeikei	../aa.py	/^def maruoSeikei(text):$/;"	kind:function	line:84
+main	../aa.py	/^def main():$/;"	kind:function	line:312
+main_old	../aa.py	/^def main_old():$/;"	kind:function	line:285
+maruoSeikei	../aa.py	/^def maruoSeikei(text):$/;"	kind:function	line:86
 math	../aa.py	/^import math$/;"	kind:namespace	line:8
 math	../bb.py	/^import math$/;"	kind:namespace	line:8
 math	../touhyou.py	/^import math$/;"	kind:namespace	line:7
-mura_odd_d	../aa.py	/^def mura_odd_d(rec, odds_param):$/;"	kind:function	line:145
-murao_odds	../aa.py	/^def murao_odds():$/;"	kind:function	line:163
-murao_race	../aa.py	/^def murao_race(tdate):$/;"	kind:function	line:88
+mura_odd_d	../aa.py	/^def mura_odd_d(rec, odds_param):$/;"	kind:function	line:147
+murao_odds	../aa.py	/^def murao_odds():$/;"	kind:function	line:165
+murao_race	../aa.py	/^def murao_race(tdate):$/;"	kind:function	line:90
 nazo_rand	../touhyou.py	/^def nazo_rand():$/;"	kind:function	line:18
-nikaime	../aa.py	/^def nikaime(tdate):$/;"	kind:function	line:69
+nikaime	../aa.py	/^def nikaime(tdate):$/;"	kind:function	line:71
 np	../aa.py	/^import numpy as np$/;"	kind:namespace	line:10
 np	../bb.py	/^import numpy as np$/;"	kind:namespace	line:10
 nyukin	../touhyou.py	/^def nyukin(kingaku):$/;"	kind:function	line:159
@@ -54,36 +54,37 @@ nyukin_list	../touhyou.py	/^def nyukin_list():$/;"	kind:function	line:102
 os	../aa.py	/^import os.path$/;"	kind:namespace	line:14
 os	../bb.py	/^import os.path$/;"	kind:namespace	line:12
 os	../touhyou.py	/^import os.path$/;"	kind:namespace	line:8
-pageDetail	../aa.py	/^def pageDetail(s):$/;"	kind:function	line:58
-pageSum	../aa.py	/^def pageSum(fd):$/;"	kind:function	line:25
+pageDetail	../aa.py	/^def pageDetail(s):$/;"	kind:function	line:60
+pageSum	../aa.py	/^def pageSum(fd):$/;"	kind:function	line:27
 path	../aa.py	/^import os.path$/;"	kind:namespace	line:14
 path	../bb.py	/^import os.path$/;"	kind:namespace	line:12
 path	../touhyou.py	/^import os.path$/;"	kind:namespace	line:8
-period	../aa.py	/^def period(dt, fmt_0, fmt_1='%Y-%m-%d %H:%M:S'):$/;"	kind:function	line:306
+period	../aa.py	/^def period(dt, fmt_0, fmt_1='%Y-%m-%d %H:%M:S'):$/;"	kind:function	line:308
 psycopg2	../aa.py	/^import psycopg2$/;"	kind:namespace	line:3
 psycopg2	../bb.py	/^import psycopg2$/;"	kind:namespace	line:3
 r	../aa.py	/^import requests as r$/;"	kind:namespace	line:7
 r	../bb.py	/^import requests as r$/;"	kind:namespace	line:7
 r	../touhyou.py	/^import requests as r$/;"	kind:namespace	line:5
-r16	../aa.py	/^r16 = range(1, 7)$/;"	kind:variable	line:455
+r16	../aa.py	/^r16 = range(1, 7)$/;"	kind:variable	line:458
 r16	../bb.py	/^r16 = range(1, 7)$/;"	kind:variable	line:32
 rand	../touhyou.py	/^import random as rand$/;"	kind:namespace	line:6
 re	../aa.py	/^import re$/;"	kind:namespace	line:2
 re	../bb.py	/^import re$/;"	kind:namespace	line:2
 re	../touhyou.py	/^import re$/;"	kind:namespace	line:2
-rune	../aa.py	/^def rune(race_id):$/;"	kind:function	line:462
-rune3	../aa.py	/^def rune3(race_id):$/;"	kind:function	line:598
+rune	../aa.py	/^def rune(race_id):$/;"	kind:function	line:465
+rune3	../aa.py	/^def rune3(race_id):$/;"	kind:function	line:601
 rune_break	../bb.py	/^def rune_break(race_id):$/;"	kind:function	line:101
 rune_continue	../bb.py	/^def rune_continue(race_id):$/;"	kind:function	line:40
-rune_nnn	../aa.py	/^def rune_nnn(race_id):$/;"	kind:function	line:538
-rune_nnn	../bb.py	/^def rune_nnn(race_id):$/;"	kind:function	line:237
+rune_list	../bb.py	/^def rune_list(race_id):$/;"	kind:function	line:280
+rune_nnn	../aa.py	/^def rune_nnn(race_id):$/;"	kind:function	line:541
+rune_nnn	../bb.py	/^def rune_nnn(race_id):$/;"	kind:function	line:230
 rune_old	../bb.py	/^def rune_old(race_id):$/;"	kind:function	line:175
-s	../aa.py	/^s = shelve.open('model\/20.db')$/;"	kind:variable	line:527
+rune_seikika	../bb.py	/^def rune_seikika(race_id):$/;"	kind:function	line:313
+s	../aa.py	/^s = shelve.open('model\/20.db')$/;"	kind:variable	line:530
 s	../bb.py	/^s = shelve.open('model\/m1000_1258.db')$/;"	kind:variable	line:26
-s	../bb.py	/^s = shelve.open('model\/m1000_1258_119.db')$/;"	kind:variable	line:230
 shelve	../aa.py	/^import shelve$/;"	kind:namespace	line:9
 shelve	../bb.py	/^import shelve$/;"	kind:namespace	line:9
-sigmoid	../aa.py	/^def sigmoid(x):$/;"	kind:function	line:21
+sigmoid	../aa.py	/^def sigmoid(x):$/;"	kind:function	line:23
 sigmoid	../bb.py	/^def sigmoid(x):$/;"	kind:function	line:19
 subprocess	../aa.py	/^import subprocess$/;"	kind:namespace	line:11
 time	../aa.py	/^import time$/;"	kind:namespace	line:6
