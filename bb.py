@@ -254,7 +254,7 @@ def rune_nnn(race_id):
                 (race_id, kagen, jougen))
     [cnt, atari] = cur.fetchone()
     KAI['all'] += 1
-    if 0.1101 < graphDat[0] and graphDat[0] < 0.2:
+    if 0.1101 < graphDat[0] and graphDat[0] < 0.5:
         print(race_id, graphDat[0])
         kauCnt += 1
         kane = kane + cnt
@@ -270,7 +270,10 @@ def rune_nnn(race_id):
             KAI['haitou'] += odds1
         cur.execute(
             "SELECT kumiban,ninki1,odds1 FROM odds_list_koushiki WHERE race_id=%s AND atari=1 ", [race_id])
-        [kumiban, ninki1, odds1] = cur.fetchone()
+        rec00 = cur.fetchone()
+        if rec00 is None:
+          return
+        [kumiban, ninki1, odds1] = rec00
         print(' ', 'HIT ' if atari == 1 else '    ', kumiban, ninki1, odds1, ' ', kane, haitou, (haitou / kane)
               if kane != 0 else 0, kauCnt, atariCnt)
         cur.execute("SELECT atari,kumiban,ninki1,odds1 FROM odds_list_koushiki WHERE race_id=%s AND odds1 BETWEEN  %s AND %s ORDER BY ninki1", (
