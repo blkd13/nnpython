@@ -504,16 +504,24 @@ finally:
 KAI = {'all': 0, 'race': 0, 'atari': 0, 'kau': 0, 'haitou': 0}
 
 def rune_nnn(race_id):
+    # モデルをロード
+    s = shelve.open('model/m1_b100.db')
+    # s = shelve.open('model/m80_5700_10.db')
+    try:
+        ld = s['map']
+    finally:
+        s.close()
     [race_ymd, jcd, race_no] = race_id.split('-')
     N_ = len(kumiban_all)
     cur.execute("SELECT kumiban,odds1 FROM odds_list_koushiki WHERE race_id=%s ORDER BY ninki1,kumiban", [race_id])
     iDat = [ { 'kumiban': kumiban, 'value': math.log(float(odds1),1000) } for [kumiban, odds1] in cur ]
+    if len(iDat) != 120:
+        return
 
     inSet =  [ obj['value'] for obj in iDat ]
     inSet += [ obj['value'] for obj in sorted(iDat,key=lambda x:x['kumiban'])]
     inSet += [ 1 if int(race_no)==idx0 else 0 for idx0 in range(1,13)]
-    if len(iDat) != 120:
-        return
+
     graphDat = sigmoid(np.dot(np.tanh(np.dot(inSet, ld['ww0']) + ld['bb0']), ld['ww1']) + ld['bb1'])
     [kagen, jougen] = [10.00, 12.58]
     # [kagen, jougen] = [39.79, 50.10]
