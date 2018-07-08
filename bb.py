@@ -283,7 +283,7 @@ def rune_nnn(race_id):
 
 
 cur.execute(
-    "SELECT race_id FROM race_list_koushiki WHERE sumi='2' AND race_id > '20171030' ORDER BY SUBSTR(race_id,1,8),shime")
+    "SELECT race_id FROM race_list_koushiki WHERE sumi='2' AND race_id > '20180510' ORDER BY SUBSTR(race_id,1,8),shime")
 for [race_id] in cur.fetchall():
     # rune_break(race_id)
     # rune_continue(race_id)

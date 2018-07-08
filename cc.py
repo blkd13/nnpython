@@ -20,7 +20,8 @@ def sigmoid(x):
     return 1.0 / (1.0 + np.exp(-x))
 
 # モデルをロード
-s = shelve.open('model/m1_b100.db')
+#TODO s = shelve.open('model/m1_b100.db')
+s = shelve.open('model/m10_b100.db')
 try:
     ld = s['map']
 finally:
@@ -40,10 +41,11 @@ def rune_nnn(race_id):
     
     inSet =  [ obj['value'] for obj in iDat ]
     inSet += [ obj['value'] for obj in sorted(iDat,key=lambda x:x['kumiban'])]
-    inSet += [ 1 if int(race_no)==idx0 else 0 for idx0 in range(1,13)]
+    #TODO inSet += [ 1 if int(race_no)==idx0 else 0 for idx0 in range(1,13)]
     if len(iDat) != 120:
         return
-    graphDat = sigmoid(np.dot(np.tanh(np.dot(inSet, ld['ww0']) + ld['bb0']), ld['ww1']) + ld['bb1'])
+    #TODO graphDat = sigmoid(np.dot(np.tanh(np.dot(inSet, ld['ww0']) + ld['bb0']), ld['ww1']) + ld['bb1'])
+    graphDat = sigmoid(np.dot(sigmoid(np.dot(inSet, ld['ww0']) + ld['bb0']), ld['ww1']) + ld['bb1'])
     [kagen, jougen] = [10.00, 12.58]
     # [kagen, jougen] = [39.79, 50.10]
     # [kagen, jougen] = [250.99, 315.95]
@@ -52,7 +54,9 @@ def rune_nnn(race_id):
                 (race_id, kagen, jougen))
     [cnt, atari] = cur.fetchone()
     KAI['all'] += 1
-    if 0.1301 < graphDat :
+    #TODO if 0.1301 < graphDat :
+    #TODO if 0.1401 < graphDat and graphDat < 0.20:
+    if 0.15 < graphDat:
         print(race_id, graphDat)
         kauCnt += 1
         kane = kane + cnt
@@ -81,7 +85,7 @@ def rune_nnn(race_id):
 
 
 cur.execute(
-    "SELECT race_id FROM race_list_koushiki WHERE sumi='2' AND race_id > '20180500' ORDER BY SUBSTR(race_id,1,8),shime")
+    "SELECT race_id FROM race_list_koushiki WHERE sumi='2' AND race_id > '20180510' ORDER BY SUBSTR(race_id,1,8),shime")
 for [race_id] in cur.fetchall():
     rune_nnn(race_id)
     continue
