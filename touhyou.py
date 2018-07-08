@@ -12,7 +12,7 @@ HOST = 'https://www.boatrace.jp'
 IB_HOST = 'https://ib.mbrace.or.jp'
 
 # 残高＞入金だったら買い付けを行わないフラグ。
-hoshuteki_flg = True
+hoshuteki_flg = False
 
 
 def nazo_rand():
